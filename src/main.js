@@ -91,4 +91,9 @@ async function init() {
     });
 }
 
-init().then(render);
+async function start() {
+    await init();
+    await render();
+}
+
+await start();
