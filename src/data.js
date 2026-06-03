@@ -26,6 +26,10 @@ export function initData(sourceData) {
     }
 
     const getRecords = async (query, isUpdated = false) => {
+        if (!sellers || !customers) {
+            await getIndexes();
+        }
+
         const qs = new URLSearchParams(query);
         const nextQuery = qs.toString();
 
