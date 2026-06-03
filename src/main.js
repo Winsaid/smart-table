@@ -11,15 +11,9 @@ import {initPagination} from "./components/pagination.js";
 import {initSorting} from "./components/sorting.js";
 import {initFiltering} from "./components/filtering.js";
 import {initSearching} from "./components/searching.js";
-// @todo: подключение
-
 
 const api = initData(sourceData);
 
-/**
- * Сбор и обработка полей из таблицы
- * @returns {Object}
- */
 function collectState() {
     const state = processFormData(new FormData(sampleTable.container));
     const rowsPerPage = parseInt(state.rowsPerPage);
@@ -32,10 +26,6 @@ function collectState() {
     };
 }
 
-/**
- * Перерисовка состояния таблицы при любых изменениях
- * @param {HTMLButtonElement?} action
- */
 async function render(action) {
     let state = collectState();
     let query = {};
@@ -57,7 +47,6 @@ const sampleTable = initTable({
     after: ['pagination']
 }, render);
 
-// @todo: инициализация
 const applySearching = initSearching('search');
 
 const {applyFiltering, updateIndexes} = initFiltering(sampleTable.filter.elements);
@@ -79,7 +68,6 @@ const {applyPagination, updatePagination} = initPagination(
     }
 );
 
-
 const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
 
@@ -91,9 +79,4 @@ async function init() {
     });
 }
 
-async function start() {
-    await init();
-    await render();
-}
-
-await start();
+init().then(render);
